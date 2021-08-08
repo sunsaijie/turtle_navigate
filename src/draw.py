@@ -134,7 +134,7 @@ class Canvas:
         
         # 如果目标点在已存在的列表，则直接跳过
         if (to_x, to_y) in self.already_exits:
-            print("碰撞了!!!!")
+            print("碰撞了!!!!", to_x, to_y)
             return
         m.move(to_x, to_y, self.unit_size)
         m.set_start(to_x, to_y)

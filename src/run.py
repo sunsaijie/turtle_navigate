@@ -27,7 +27,7 @@ def render():
     
     # 计算每个点的移动轨迹
     resolve = Resolve(load_map, point)
-    data = resolve.resolve(38, 38)
+    data = resolve.resolve_1(38, 38)
     for moves in data:
         c.accept_move_dict(moves)
     
@@ -60,6 +60,63 @@ class Resolve:
                 ret[key] = random.choice(self.directions)
             rets.append(ret)
         return rets
+    
+    def resolve_1(self, target_x, target_y):
+        rets = []
+        index = 0
+        while index < 100:
+            index += 1
+            ret = {}
+            for id_, point in self.point.items():
+                if point[0] < target_x:
+                    d_x = 1
+                elif point[0] > target_x:
+                    d_x = -1
+                else:
+                    d_x = 0
+            
+                if point[1] < target_y:
+                    d_y = 1
+                elif point[1] > target_y:
+                    d_y = -1
+                else:
+                    d_y = 0
+                t_x , t_y  = point[0] + d_x, point[1] + d_y
+                
+                turn = 0
+                while self.load_map[t_y][t_x] != 0:
+                    # 换一个方向, 在原来的基础上右转
+                    print(id_, "碰撞了", t_x, t_y, self.load_map[t_y][t_x])
+                        
+                    print(id_, "turn_right before", d_x, d_y)
+                    d_x, d_y = self.turn_right(d_x, d_y)
+                    print(id_, "turn_right after", d_x, d_y)
+                    t_x , t_y  = point[0] + d_x, point[1] + d_y
+                    if not (0 <= t_y < len(self.load_map) and 0 <= t_x < len(self.load_map[0])):
+                        d_x = d_y = 0
+                        t_x, t_y = point[0], point[1]
+                        
+
+                if (t_x, t_y) in self.point.values():
+                    d_x = d_y = 0
+                    t_x, t_y = point[0], point[1]
+                    
+                    
+                ret[id_] = (d_x, d_y)
+                self.point[id_] = (t_x, t_y)
+            rets.append(ret)
+        return rets
+    
+    def turn_right(self, d_x, d_y):
+        directions = [(1,0), (1,-1), (0,-1), (-1,-1), (-1,0), (-1,1), (0,1), (1,1)]
+        if d_x == 0 and d_y == 0:
+            return d_x, d_y
+        
+        index = directions.index((d_x, d_y)) + 1
+        d_x, d_y = directions[index % 8]
+        return d_x, d_y
+                
+    
 
 
 if __name__ == "__main__":
