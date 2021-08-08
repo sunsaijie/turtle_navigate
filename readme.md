@@ -5,6 +5,15 @@
 
 ## 使用方法
 
+
+```
+    git clone https://github.com/sunsaijie/turtle_navigate.git
+    cd turtle_navigate
+    # 填充Resolve类中的resolve方法
+    python3 run.py
+```
+
+
 ### `matrix.py`的文件
 
 其他的loadmap变量为地图, 可以进行更改，数字代表的含义
