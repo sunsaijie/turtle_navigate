@@ -25,18 +25,19 @@ def render():
     
     # 计算每个点的移动轨迹
     resolve = Resolve(load_map, point)
-    data = resolve.resolve()
+    data = resolve.resolve(38, 38)
     for moves in data:
         c.accept_move_dict(moves)
     
     c.done()
+
 
 class Resolve:
     def __init__(self, load_map, point):
         self.load_map = load_map
         self.point = point
 
-    def resolve(self) -> List[Dict[int, Tuple[int, int]]]:
+    def resolve(self, target_x, target_y) -> List[Dict[int, Tuple[int, int]]]:
         """
         [
             {id: (1, 1)}
@@ -47,7 +48,7 @@ class Resolve:
         (1,1), (1,-1), (1,0)....
         """
         rets = []
-        for i in range(20):
+        for _ in range(20):
             ret = {}
             for key in self.point:
                 ret[key] = (1,0)

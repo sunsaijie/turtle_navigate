@@ -175,35 +175,3 @@ class Canvas:
             ct.forward(height_count * self.unit_size)
             ct.up()
 
-        
-if __name__ == "__main__":
-    c = Canvas(40, 40)
-    c.append(2,2,Mountain)
-    c.append(2,3,Mountain)
-    c.append(2,4,Mountain)
-    c.append(5,5,Mine)
-    c.append(7,7, GoldMine)
-    c.append(8,8, GoldMine)
-    c.append(7,8, GoldMine)
-    c.append(8,7, GoldMine)
-    c._init_canvas()
-    c.set_moveblock(30, 30, 1)
-    c.set_moveblock(15, 31, 2)
-    c.set_moveblock(12, 12, 3)
-    c.set_moveblock(18, 18, 4)
-    
-
-    moves = [
-            {1: (1,1), 2: (1,1), 3:(1,1)},
-            {1: (1,1), 2: (1,1), 3:(1,1)},
-            {1: (1,1), 2: (1,1), 3:(1,1)},
-            {1: (1,1), 2: (1,1), 3:(1,1)},
-    ]
-    for move_dict in moves:
-        c.accept_move_dict(move_dict)
-
-    c.done()
-    # test()
-    
-    
-
