@@ -1,7 +1,9 @@
 from matrix import load_map, point
 from draw import GoldMine, Mine, Mountain, River, Canvas
+from itertools import permutations
 
 from typing import List, Dict, Tuple
+import random
 
 def render():
     block_dict = {}
@@ -36,6 +38,10 @@ class Resolve:
     def __init__(self, load_map, point):
         self.load_map = load_map
         self.point = point
+        self.directions = [(x, y) for x, y in permutations([-1, 0, 1], 2) if x != 0 or y != 0]
+        self.directions.append((1, 1))
+        self.directions.append((-1, -1))
+        print(self.directions)
 
     def resolve(self, target_x, target_y) -> List[Dict[int, Tuple[int, int]]]:
         """
@@ -48,10 +54,10 @@ class Resolve:
         (1,1), (1,-1), (1,0)....
         """
         rets = []
-        for _ in range(20):
+        for _ in range(100):
             ret = {}
             for key in self.point:
-                ret[key] = (1,0)
+                ret[key] = random.choice(self.directions)
             rets.append(ret)
         return rets
 

@@ -121,6 +121,17 @@ class Canvas:
         y = m.y
         to_x = x + vertor_x * self.unit_size
         to_y = y - vertor_y * self.unit_size
+        start_x, start_y = self.start_point
+        end_x = start_x + self.width
+        end_y = start_y - self.height
+        if to_x < start_x or to_x > end_x:
+            print("超出了x轴的范围")
+            return 
+        
+        if to_y > start_y or to_y < end_y:
+            print("超出了y轴的范围")
+            return
+        
         # 如果目标点在已存在的列表，则直接跳过
         if (to_x, to_y) in self.already_exits:
             print("碰撞了!!!!")
