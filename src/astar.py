@@ -54,6 +54,7 @@ class AstartClass:
             print(ret_node.Parent)
             paths.append((ret_node.x, ret_node.y))
             ret_node = ret_node.Parent
+        paths.append((ret_node.x, ret_node.y))
         paths.reverse()
         for i in range(len(paths) - 1):
             cur_path = paths[i]

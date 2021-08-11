@@ -1,6 +1,7 @@
 from matrix import load_map, point
 from draw import GoldMine, Mine, Mountain, River, Canvas
 from itertools import permutations
+from astar import AstartClass
 
 from typing import List, Dict, Tuple
 import random
@@ -26,8 +27,10 @@ def render():
         c.set_moveblock(*start_point, id_)
     
     # 计算每个点的移动轨迹
-    resolve = Resolve(load_map, point)
-    data = resolve.resolve_1(38, 38)
+    resolve = AstartClass(load_map)
+    data = []
+    for i in resolve.resolve((0,0), (38, 38)):
+        data.append({1: i})
     for moves in data:
         c.accept_move_dict(moves)
     

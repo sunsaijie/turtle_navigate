@@ -3,7 +3,7 @@ from typing import Tuple
 import time
 
 
-UPDATE_SPEED = 0.5
+UPDATE_SPEED = 0.1
 
 
 class BaseBlock:
