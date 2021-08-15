@@ -40,6 +40,14 @@ class Node:
         delta = abs(dis_x - dis_y)
         return abs(dis_x - delta) * 14 + delta * 10
 
+class JPSClass:
+    def __init__(self, load_map):
+        self.load_map = load_map
+
+
+    def resolve(self, start, end):
+        pass
+
 
 class AstartClass:
     def __init__(self, load_map):
@@ -49,17 +57,18 @@ class AstartClass:
         start_node = Node(*start)
         end_node = Node(*end)
         ret_node = self.calc(self.load_map, start_node, end_node)
-        paths = []
-        while ret_node.Parent:
-            print(ret_node.Parent)
-            paths.append((ret_node.x, ret_node.y))
-            ret_node = ret_node.Parent
-        paths.append((ret_node.x, ret_node.y))
-        paths.reverse()
-        for i in range(len(paths) - 1):
-            cur_path = paths[i]
-            next_path = paths[i+1]
-            yield next_path[1] - cur_path[1], next_path[0] - cur_path[0] 
+        return ret_node
+        # paths = []
+        # while ret_node.Parent:
+        #     print(ret_node.Parent)
+        #     paths.append((ret_node.x, ret_node.y))
+        #     ret_node = ret_node.Parent
+        # paths.append((ret_node.x, ret_node.y))
+        # paths.reverse()
+        # for i in range(len(paths) - 1):
+        #     cur_path = paths[i]
+        #     next_path = paths[i+1]
+        #     yield next_path[1] - cur_path[1], next_path[0] - cur_path[0] 
             
 
     def calc(self, matrix, start_node: Node, end_node: Node):

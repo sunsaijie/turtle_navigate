@@ -2,6 +2,7 @@ from matrix import load_map, point
 from draw import GoldMine, Mine, Mountain, River, Canvas
 from itertools import permutations
 from astar import AstartClass
+from jsp import Jsp, make_path
 
 from typing import List, Dict, Tuple
 import random
@@ -27,10 +28,18 @@ def render():
         c.set_moveblock(*start_point, id_)
     
     # 计算每个点的移动轨迹
-    resolve = AstartClass(load_map)
+    # resolve = AstartClass(load_map)
     data = []
-    for i in resolve.resolve((0,0), (38, 38)):
+    # for i in resolve.resolve((0,0), (38, 38)):
+    #     data.append({1: i})
+    resolve = Jsp(load_map)
+    a = resolve.find_path((0,0), (38, 38))
+    while a.Parent:
+        print(a)
+        a = a.Parent
+    for i in make_path(a):
         data.append({1: i})
+    
     for moves in data:
         c.accept_move_dict(moves)
     
