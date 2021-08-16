@@ -124,9 +124,10 @@ class Node:
 
 class Jsp:
     def __init__(self, map_points):
-        self.map_points = map_points
-        self.width = len(self.map_points)
-        self.height =len(self.map_points[0])
+        self.width = len(map_points)
+        self.height =len(map_points[0])
+        self.map_points = np.zeros((self.width, self.height), dtype=np.dtype([('t', 'i4'), ('holder', 'i4')]))
+        self.map_points['t'] = map_points
     
     @cost_time
     def find_path(self, start:Vector, end:Vector) -> Optional[List[Vector]]:
@@ -262,7 +263,9 @@ class Jsp:
             return False
         elif not (0 <= y < self.height):
             return False
-        elif self.map_points[x][y] != 0:
+        elif self.map_points[x][y]['t'] != 0:
+            return False
+        elif self.map_points[x][y]['holder'] != 0:
             return False
         else:
             return True
@@ -435,9 +438,10 @@ def make_path(node):
         node = p
     paths.append((node.x, node.y))
     paths.reverse()
-    for i, _ in enumerate(paths[:-1]):
-        yield (paths[i + 1][0] - paths[i][0], paths[i + 1][1] - paths[i][1])
-        
+    return paths
+    # for i, _ in enumerate(paths[:-1]):
+    #     yield (paths[i + 1][0] - paths[i][0], paths[i + 1][1] - paths[i][1])
+    #     
         
     
 from astar import AstartClass
